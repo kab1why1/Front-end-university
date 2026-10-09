@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кияниця І.С., група ІС-43, Лабораторна робота №2, Варіант 9</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      /* Кольори згідно з варіантом 9 (nn = 09) */
+      --row-one: #098f8f;
+      --row-two: #f5f509;
+      --row-one-text: #ffffff;
+      --row-two-text: #171717;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+
+    .variant-table {
+      width: 100%;
+      min-width: 620px;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border: 1px solid #66717b;
+      background: #ffffff;
+    }
+
+    .variant-table .col-one,
+    .variant-table .col-two,
+    .variant-table .col-three {
+      width: 25%;
+    }
+
+    .variant-table .col-four,
+    .variant-table .col-five {
+      width: 12.5%;
+    }
+
+    .variant-table td {
+      padding: 10px 12px;
+      border: 1px solid #66717b;
+      text-align: left;
+      vertical-align: middle;
+      overflow-wrap: anywhere;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .identity-row > td {
+      height: 82px;
+      background-color: var(--row-one);
+      color: var(--row-one-text);
+    }
+
+    .info-row > td {
+      height: 42px;
+      background-color: var(--row-two);
+      color: var(--row-two-text);
+    }
+
+    .empty-row > td {
+      height: 42px;
+      background: #fafbfc;
+    }
+
+    /* Дзеркальна зміна кольорів при наведенні курсора (:hover) */
+    .identity-row:hover > td,
+    .identity-row > td:hover {
+      background-color: var(--row-two);
+      color: var(--row-two-text);
+      cursor: pointer;
+    }
+
+    .info-row:hover > td,
+    .info-row > td:hover {
+      background-color: var(--row-one);
+      color: var(--row-one-text);
+      cursor: pointer;
+    }
+
+    .name-parts {
+      width: 100%;
+      border: 0;
+      border-collapse: collapse;
+      color: inherit;
+      background: transparent;
+    }
+
+    .name-parts td {
+      width: 50%;
+      padding: 0 12px 0 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      vertical-align: middle;
+    }
+
+    .name-parts td:last-child {
+      padding-right: 0;
+      padding-left: 8px;
+    }
+
+    .field-value {
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .meta-cell {
+      text-align: center !important;
+    }
+
+    .meta-cell .field-value {
+      font-size: 0.86rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="work-card" aria-labelledby="task-one-title">
+      <div class="table-scroll" role="region" aria-label="Таблиця варіанта 9" tabindex="0">
+        <table class="variant-table">
+          <colgroup>
+            <col class="col-one">
+            <col class="col-two">
+            <col class="col-three">
+            <col class="col-four">
+            <col class="col-five">
+          </colgroup>
+          <tbody>
+            <tr class="identity-row">
+              <td class="identity-cell" colspan="2" rowspan="2">
+                <table class="name-parts" aria-label="Поля для імені виконавця">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="field-value">Кияниця</span>
+                      </td>
+                      <td>
+                        <span class="field-value">Іван</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td class="patronymic-cell" colspan="3">
+                <span class="field-value">Сергійович</span>
+              </td>
+            </tr>
+            <tr class="info-row">
+              <td class="group-cell meta-cell" rowspan="2">
+                <span class="field-value">ІС-43</span>
+              </td>
+              <td class="lab-cell meta-cell" rowspan="3">
+                <span class="field-value">Лабораторна № 2</span>
+              </td>
+              <td class="variant-cell meta-cell" rowspan="3">
+                <span class="field-value">Варіант № 9</span>
+              </td>
+            </tr>
+            <tr class="empty-row">
+              <td class="empty-cell" aria-label="Порожня комірка"></td>
+              <td class="empty-cell" aria-label="Порожня комірка"></td>
+            </tr>
+            <tr class="empty-row">
+              <td class="empty-cell" aria-label="Порожня комірка"></td>
+              <td class="empty-cell" aria-label="Порожня комірка"></td>
+              <td class="empty-cell" aria-label="Порожня комірка"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="work-card" aria-labelledby="task-two-title">
+
+      <div class="shape-grid">
+        <div class="shape-item">
+          <h3>position</h3>
+          <div class="shape-stage">
+            <div class="shape-frame" role="img" aria-label="Центрування через відносні координати та від'ємний margin">
+              <div class="red-circle circle-position"></div>
+            </div>
+          </div>
+          <p class="shape-caption"><code>position: absolute; top: 50%; left: 50%; margin: -44px 0 0 -44px;</code></p>
+        </div>
+
+        <div class="shape-item">
+          <h3>transform</h3>
+          <div class="shape-stage">
+            <div class="shape-frame" role="img" aria-label="Центрування через CSS transform translate">
+              <div class="red-circle circle-transform"></div>
+            </div>
+          </div>
+          <p class="shape-caption"><code>position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);</code></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
