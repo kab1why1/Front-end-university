@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Галерея товарів</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --ink: #1f2430;
+    --muted: #6b7280;
+    --line: #d5dae5;
+    --accent: #3b6cf6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 40px; }
+  h1 { margin: 0 0 4px; font-size: 1.6rem; }
+  .sub { margin: 0 0 20px; color: var(--muted); }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(31, 36, 48, .12);
+  }
+  .card-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .card-body { padding: 14px 16px 16px; }
+  .card-name { margin: 0 0 6px; font-size: 1.05rem; }
+  .card-price { margin: 0; font-weight: 700; font-size: 1.15rem; color: var(--accent); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+
+<script type="text/babel">
+// Тимчасові "фото": картинка з емодзі (SVG). Щоб підставити справжні фото,
+// у масиві GOODS замініть значення photo на посилання або шлях до файлу,
+// наприклад "images/headphones.jpg".
+function makePhoto(emoji, from, to) {
+  const svg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">' +
+    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+    '<stop offset="0" stop-color="' + from + '"/><stop offset="1" stop-color="' + to + '"/>' +
+    '<\/linearGradient><\/defs>' +
+    '<rect width="400" height="300" fill="url(#g)"/>' +
+    '<text x="200" y="160" font-size="120" text-anchor="middle" dominant-baseline="middle">' + emoji + '<\/text>' +
+    '<\/svg>';
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+const GOODS = [
+  { id: 1, name: "Бездротові навушники",   price: 2499,  photo: makePhoto("🎧", "#dbeafe", "#bfdbfe") },
+  { id: 2, name: "Смарт-годинник",         price: 4199,  photo: makePhoto("⌚", "#fce7f3", "#fbcfe8") },
+  { id: 3, name: "Механічна клавіатура",   price: 3299,  photo: makePhoto("⌨️", "#dcfce7", "#bbf7d0") },
+  { id: 4, name: "Ігрова миша",            price: 1399,  photo: makePhoto("🖱️", "#fef3c7", "#fde68a") },
+  { id: 5, name: "Портативна колонка",     price: 1799,  photo: makePhoto("🔊", "#ede9fe", "#ddd6fe") },
+  { id: 6, name: "Фотокамера",             price: 18999, photo: makePhoto("📷", "#e0f2fe", "#bae6fd") },
+  { id: 7, name: "Рюкзак для ноутбука",    price: 1599,  photo: makePhoto("🎒", "#ffedd5", "#fed7aa") },
+  { id: 8, name: "Монітор 27\"",           price: 8499,  photo: makePhoto("🖥️", "#f1f5f9", "#e2e8f0") }
+];
+
+function formatPrice(value) {
+  return value.toLocaleString("uk-UA") + " ₴";
+}
+
+// Картка товару: усі дані приходять через props
+function GoodsCard(props) {
+  return (
+    <article className="card">
+      <img className="card-photo" src={props.photo} alt={props.name} />
+      <div className="card-body">
+        <h3 className="card-name">{props.name}</h3>
+        <p className="card-price">{formatPrice(props.price)}</p>
+      </div>
+    </article>
+  );
+}
+
+// Галерея: для кожного товару створює GoodsCard і передає параметри через props
+function GoodsGallery(props) {
+  return (
+    <div className="gallery">
+      {props.items.map(item => (
+        <GoodsCard key={item.id} photo={item.photo} name={item.name} price={item.price} />
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <main>
+      <h1>Галерея товарів</h1>
+      <p className="sub">Товарів: {GOODS.length}</p>
+      <GoodsGallery items={GOODS} />
+    </main>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

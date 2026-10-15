@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="React, лабораторна робота, КПІ">
+<meta name="description" content="Лабораторна робота: React-компоненти Header, Content, Image">
+<title>Кияниця Іван Сергійович, ІС-43, React</title>
+<style>
+#city-description,
+.city-link {
+  cursor: pointer;
+}
+
+.city-link {
+  display: inline-block;
+  padding: 10px;
+}
+
+.city-link img {
+  display: block;
+}
+
+.city-link span {
+  display: block;
+  margin-top: 6px;
+}
+
+.controls {
+  margin: 10px 0;
+}
+
+.controls button {
+  margin-right: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+#gallery img {
+  display: block;
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+
+<script type="text/babel">
+const IMG_SRC = "https://img.tsn.ua/cached/421/tsn-1284f5ef/thumbs/1200x630/96/38/2fe2f06b90af05b5cb64db8ad5f53896.jpg";
+const START_WIDTH = 600;
+const SIZE_STEP = 50;
+const MIN_WIDTH = 100;
+
+const HOBBIES = ["Комп'ютерні ігри", "Біг", "Читати книги"];
+const FAVORITES = ['"Престиж", 2006', '"Сім", 1995', '"Одісея", 2026'];
+
+// Кольорові схеми для кліків: по колу, третя — повернення до початкового вигляду
+const colorSchemes = [
+  { bg: "#1e3a5f", color: "#ffffff" },
+  { bg: "#ffe08a", color: "#222222" },
+  { bg: "", color: "" }
+];
+
+// step — скільки разів уже клацнули; 0 — стилі не задані
+function schemeStyle(step) {
+  if (step === 0) return {};
+  const scheme = colorSchemes[(step - 1) % colorSchemes.length];
+  return { backgroundColor: scheme.bg, color: scheme.color };
+}
+
+// ---------- Header: функціональний компонент ----------
+function Header(props) {
+  return <h2>{props.name}</h2>;
+}
+
+// ---------- Image: функціональний компонент ----------
+function Image(props) {
+  return <img src={props.src} alt={props.alt} width={props.width} />;
+}
+
+// ---------- Content: класовий компонент ----------
+class Content extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      textStep: 0,          // кліки по тексту про місто
+      linkStep: 0,          // кліки по посиланню
+      mainWidth: START_WIDTH, // ширина панорами всередині посилання
+      mainVisible: true,
+      gallery: [],          // додані кнопкою "Додати" зображення: { id, width }
+      nextId: 1
+    };
+
+    this.changeTextColor = this.changeTextColor.bind(this);
+    this.changeLinkColor = this.changeLinkColor.bind(this);
+    this.addImage = this.addImage.bind(this);
+    this.growImage = this.growImage.bind(this);
+    this.shrinkImage = this.shrinkImage.bind(this);
+    this.deleteImage = this.deleteImage.bind(this);
+  }
+
+  changeTextColor() {
+    this.setState(state => ({ textStep: state.textStep + 1 }));
+  }
+
+  changeLinkColor() {
+    this.setState(state => ({ linkStep: state.linkStep + 1 }));
+  }
+
+  addImage() {
+    this.setState(state => ({
+      gallery: [...state.gallery, { id: state.nextId, width: START_WIDTH }],
+      nextId: state.nextId + 1
+    }));
+  }
+
+  // Змінює ширину останнього зображення на сторінці:
+  // спочатку з галереї, а якщо вона порожня — головної панорами
+  resizeLast(delta) {
+    this.setState(state => {
+      const last = state.gallery.length - 1;
+      if (last >= 0) {
+        const gallery = state.gallery.map((img, i) =>
+          i === last ? { ...img, width: Math.max(MIN_WIDTH, img.width + delta) } : img
+        );
+        return { gallery: gallery };
+      }
+      if (state.mainVisible) {
+        return { mainWidth: Math.max(MIN_WIDTH, state.mainWidth + delta) };
+      }
+      return null;
+    });
+  }
+
+  growImage() {
+    this.resizeLast(SIZE_STEP);
+  }
+
+  shrinkImage() {
+    this.resizeLast(-SIZE_STEP);
+  }
+
+  deleteImage() {
+    this.setState(state => {
+      if (state.gallery.length) {
+        return { gallery: state.gallery.slice(0, -1) };
+      }
+      if (state.mainVisible) {
+        return { mainVisible: false };
+      }
+      return null;
+    });
+  }
+
+  render() {
+    const s = this.state;
+    return (
+      <div>
+        <p>Місце народження: 10 квітня, 2007 року, м. Київ</p>
+
+        <p>Освіта: Мирівський ліцей, м. Обухів;</p>
+        <p>НТТУ "КПІ", м. Київ</p>
+
+        <p>Хобі:</p>
+        <ul>
+          {HOBBIES.map(hobby => <li key={hobby}>{hobby}</li>)}
+        </ul>
+
+        <p>Улюблені фільми та книги:</p>
+        <ol>
+          {FAVORITES.map(item => <li key={item}>{item}</li>)}
+        </ol>
+
+        <p>Улюблене місто: Київ</p>
+
+        <p id="city-description" style={schemeStyle(s.textStep)} onClick={this.changeTextColor}>
+          Просто місто в якому я провів велику частину свого життя, в якому проживає велика більшість моїх знайомих, та загальний настрій або вайб цього міста мені дуже імонує та має для мене дуже велике значення.
+        </p>
+
+        <a className="city-link" href="https://kyivcity.gov.ua/" target="_blank" rel="noreferrer"
+           style={schemeStyle(s.linkStep)} onClick={this.changeLinkColor}>
+          {s.mainVisible && <Image src={IMG_SRC} alt="Панорама Києва" width={s.mainWidth} />}
+          <span>Панорама Києва</span>
+        </a>
+
+        <div className="controls">
+          <button type="button" id="btn-add" onClick={this.addImage}>Додати</button>
+          <button type="button" id="btn-grow" onClick={this.growImage}>Збільшити</button>
+          <button type="button" id="btn-shrink" onClick={this.shrinkImage}>Зменшити</button>
+          <button type="button" id="btn-delete" onClick={this.deleteImage}>Видалити</button>
+        </div>
+
+        <div id="gallery">
+          {s.gallery.map(img => (
+            <Image key={img.id} src={IMG_SRC} alt="Панорама Києва" width={img.width} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+// ---------- Застосунок ----------
+function App() {
+  return (
+    <>
+      <Header name="Кияниця Іван Сергійович" />
+      <Content />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
