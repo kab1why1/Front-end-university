@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Estore — online clothing shop: winter collection, latest products and best collection of the month">
+<title>Estore. — Winter Collection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #3b7bf6;
+  --blue-dark: #2a62d6;
+  --red: #ef4565;
+  --ink: #1b1b1f;
+  --muted: #8a8f98;
+  --line: #ececf0;
+  --hero: #cfe8fc;
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --script: "Kaushan Script", "Brush Script MT", cursive;
+  --wrap: 1200px;
+  --gutter: 24px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+button { font: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap-narrow { max-width: 1080px; }
+
+.btn {
+  display: inline-block;
+  padding: 11px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.btn-sm { padding: 8px 20px; font-size: .74rem; }
+.btn-glow { box-shadow: 0 14px 26px -8px rgba(59, 123, 246, .55); }
+.btn-dark { background: #111; box-shadow: 0 16px 26px -10px rgba(0, 0, 0, .5); }
+.btn-dark:hover { background: #000; }
+
+/* ---------- Top bar ---------- */
+.topbar { background: #000; color: #fff; font-size: .72rem; }
+.topbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 36px; }
+.topbar .left, .topbar .right { display: flex; align-items: center; gap: 22px; }
+.topbar a:hover { color: #9db9fb; }
+.flag { display: inline-flex; align-items: center; gap: 6px; }
+.flag .caret { font-size: .5rem; opacity: .8; }
+
+/* ---------- Navbar ---------- */
+.navbar { position: sticky; top: 0; z-index: 30; background: #fff; box-shadow: 0 1px 0 rgba(0, 0, 0, .06); }
+.nav { position: relative; display: flex; align-items: center; gap: 28px; min-height: 74px; }
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+.menu { display: flex; gap: 28px; margin: 0 auto; font-size: .78rem; font-weight: 500; }
+.menu a { position: relative; display: inline-block; padding: 6px 0; transition: color .2s; }
+.menu a:hover, .menu a.active { color: var(--blue); }
+.badge-hot {
+  position: absolute; top: -6px; right: -26px;
+  padding: 0 6px; border-radius: 8px;
+  background: var(--red); color: #fff;
+  font-size: .55rem; line-height: 1.6;
+}
+.menu-search { display: none; }
+
+.tools { display: flex; align-items: center; gap: 16px; }
+.search {
+  display: flex; align-items: center;
+  height: 34px; padding: 0 6px 0 14px;
+  border: 1px solid #e3e5ea; border-radius: 999px; background: #fff;
+}
+.search input { width: 130px; border: 0; outline: 0; background: transparent; font: inherit; font-size: .72rem; color: var(--ink); }
+.search input::placeholder { color: #9a9ea8; }
+.search button, .icon-btn { position: relative; display: inline-grid; place-items: center; padding: 4px; border: 0; background: none; color: var(--ink); }
+.icon-btn:hover, .search button:hover { color: var(--blue); }
+.count {
+  position: absolute; top: -4px; right: -6px;
+  display: grid; place-items: center;
+  min-width: 16px; height: 16px; border-radius: 50%;
+  background: var(--blue); color: #fff; font-size: .58rem; font-weight: 600;
+}
+.nav-toggle { display: none; }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--hero); overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; align-items: end; min-height: 560px; }
+.hero-art { width: min(100%, 500px); align-self: end; }
+.hero-art svg { width: 100%; height: auto; }
+.hero-copy { align-self: center; padding: 40px 0 40px 56px; }
+.kicker { margin: 0 0 6px; font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--blue); }
+.hero-copy h1 { margin: 0 0 14px; font-family: var(--serif); font-weight: 700; font-size: clamp(2.4rem, 5.2vw, 4.3rem); line-height: 1.08; }
+.hero-copy p { margin: 0 0 26px; font-family: var(--serif); font-style: italic; font-size: .95rem; }
+
+/* ---------- Sections ---------- */
+.section { padding-top: 96px; }
+.section-title { margin: 0 0 36px; text-align: center; font-family: var(--serif); font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 1.9rem); }
+
+/* Categories */
+.cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cat { position: relative; display: grid; grid-template-columns: 46% 1fr; align-items: end; min-height: 190px; padding-right: 14px; border-radius: 6px; background: #edf4fc; overflow: hidden; }
+.cat.pink { background: #fbd7dd; }
+.cat-art { align-self: end; }
+.cat-art svg { width: 100%; height: auto; }
+.cat-copy { display: grid; gap: 6px; justify-items: start; align-self: center; padding: 16px 0; }
+.cat-copy h3 { margin: 0; font-family: var(--serif); font-size: 1.15rem; line-height: 1.2; }
+.tag { padding: 3px 12px; border-radius: 999px; background: #ffd23f; font-size: .62rem; font-weight: 500; }
+.script { font-family: var(--script); font-size: .95rem; color: var(--blue); }
+.cat-copy small { font-size: .68rem; color: #666; }
+
+/* Latest products */
+.latest-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 30px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.latest-head h2 { margin: 0; font-family: var(--serif); font-size: clamp(1.4rem, 2.4vw, 1.75rem); }
+.filters { display: flex; gap: 18px; font-size: .72rem; }
+.filters button { padding: 2px 0; border: 0; background: none; color: var(--muted); transition: color .2s; }
+.filters button:hover { color: var(--ink); }
+.filters button[aria-pressed="true"] { color: var(--red); }
+
+.products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 28px; }
+.product { text-align: center; }
+.product-img { position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1.08; overflow: hidden; border-radius: 4px; background: #f4f4f6; }
+.product-img svg { width: 78%; height: auto; transition: transform .3s; }
+.product:hover .product-img svg { transform: scale(1.06); }
+.new { position: absolute; top: 12px; left: 12px; padding: 1px 11px; border-radius: 3px; background: var(--red); color: #fff; font-size: .62rem; }
+.stars { display: flex; justify-content: center; gap: 2px; margin: 14px 0 6px; color: #f5b301; font-size: .8rem; line-height: 1; }
+.stars .off { color: #d8d8dd; }
+.product h3 { margin: 0 0 4px; font-family: var(--serif); font-weight: 400; font-size: .85rem; }
+.price { font-size: .8rem; font-weight: 500; }
+.price del { margin-left: 8px; color: var(--red); font-weight: 400; }
+
+/* Promo banner */
+.promo { margin-top: 130px; }
+.promo-box { position: relative; display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; min-height: 380px; background: #fff5d3; }
+.promo-art { position: relative; z-index: 1; align-self: end; margin-top: -70px; padding-left: 70px; }
+.promo-art svg { width: min(100%, 210px); height: auto; }
+.ghost {
+  position: absolute; left: 12px; bottom: 6px;
+  font-size: clamp(4rem, 10vw, 7.5rem); font-weight: 800; line-height: 1; letter-spacing: .02em;
+  color: rgba(255, 255, 255, .65);
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  user-select: none; pointer-events: none;
+}
+.promo-copy { padding: 30px 40px 30px 0; }
+.promo-copy h2 { margin: 0 0 10px; max-width: 22ch; font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.15rem); line-height: 1.25; }
+.promo-copy p { margin: 0 0 24px; max-width: 34ch; font-size: .78rem; color: #555; }
+.promo-jeans { position: absolute; right: 7%; bottom: 28px; width: 170px; }
+
+/* Best collection */
+.best { padding: 120px 0 100px; }
+.best-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; gap: 20px; }
+.best-copy h2 { margin: 0 0 10px; max-width: 12ch; font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 1.9rem); line-height: 1.25; }
+.best-copy p { margin: 0 0 24px; max-width: 28ch; font-size: .78rem; color: #555; }
+.best-jeans { width: 190px; margin-top: 56px; }
+.best-art { position: relative; justify-self: center; width: min(100%, 300px); }
+.best-art svg { position: relative; z-index: 1; width: 100%; height: auto; }
+.ghost-blue {
+  position: absolute; left: -26px; bottom: 30px;
+  font-size: clamp(3.5rem, 7vw, 5.8rem); font-weight: 800; line-height: 1; letter-spacing: .03em;
+  color: #e3eefc;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  user-select: none; pointer-events: none;
+}
+.best-list { display: grid; gap: 18px; justify-items: end; }
+.best-item { display: flex; align-items: center; gap: 14px; padding: 0; border: 0; background: none; text-align: right; color: var(--ink); }
+.best-item .label { max-width: 17ch; padding: 12px 18px; border-radius: 4px; font-size: .74rem; line-height: 1.35; transition: background .2s, color .2s, box-shadow .2s; }
+.best-item:hover .label { color: var(--blue); }
+.best-item[aria-pressed="true"] .label { background: var(--blue); color: #fff; box-shadow: 0 12px 22px -8px rgba(59, 123, 246, .6); }
+.thumb { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 4px; background: #f6f6f8; }
+.thumb svg { width: 80%; height: auto; }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
+  .nav { gap: 18px; }
+  .menu { gap: 20px; }
+  .search input { width: 96px; }
+  .hero-copy { padding-left: 32px; }
+  .promo-copy { padding-right: 24px; }
+}
+
+@media (max-width: 900px) {
+  /* menu -> burger */
+  .nav-toggle { display: inline-grid; }
+  .nav { gap: 14px; }
+  .logo { margin-right: auto; }
+  .tools .search { display: none; }
+  .menu {
+    position: absolute; top: 100%; left: 0; right: 0;
+    display: none; flex-direction: column; gap: 0; margin: 0;
+    padding: 8px var(--gutter) 18px; background: #fff;
+    box-shadow: 0 18px 24px -12px rgba(0, 0, 0, .18);
+  }
+  .navbar.open .menu { display: flex; }
+  .menu a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+  .menu li:last-of-type a { border-bottom: 0; }
+  .badge-hot { top: 8px; right: auto; left: 52px; }
+  .menu-search { display: block; padding-top: 12px; }
+  .menu-search .search { display: flex; width: 100%; }
+  .menu-search input { width: 100%; }
+
+  .cats { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+
+  .promo-box { grid-template-columns: 1fr; text-align: center; padding-bottom: 30px; }
+  .promo-art { justify-self: center; padding-left: 0; }
+  .promo-art svg { width: 200px; }
+  .promo-copy { padding: 10px 24px 0; }
+  .promo-copy h2, .promo-copy p { margin-left: auto; margin-right: auto; }
+  .promo-jeans { position: static; margin: 26px auto 0; width: 150px; }
+  .ghost { left: 8px; bottom: auto; top: 30px; font-size: 4.4rem; }
+
+  .best-grid { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+  .best-copy h2, .best-copy p { margin-left: auto; margin-right: auto; }
+  .best-jeans { margin: 36px auto 0; }
+  .best-list { justify-items: center; }
+  .best-item { flex-direction: row-reverse; text-align: left; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 760px) {
+  .hero .wrap { grid-template-columns: 1fr; min-height: 0; }
+  .hero-copy { order: -1; padding: 40px 0 8px; text-align: center; }
+  .hero-art { justify-self: center; width: min(86%, 360px); }
+
+  .topbar .right li:nth-child(n+3):not(:nth-child(4)) { display: none; }
+  .section { padding-top: 72px; }
+  .promo { margin-top: 110px; }
+  .best { padding: 90px 0 70px; }
+}
+
+@media (max-width: 700px) {
+  .products { grid-template-columns: repeat(2, 1fr); gap: 26px 16px; }
+  .latest-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+@media (max-width: 560px) {
+  :root { --gutter: 16px; }
+  .topbar .left span.phone { font-size: .68rem; }
+  .topbar .right { gap: 14px; }
+  .topbar .right li:nth-child(n+2) { display: none; }
+  .nav { min-height: 64px; }
+  .logo { font-size: 1.3rem; }
+  .tools { gap: 12px; }
+  .hero-copy { padding-top: 32px; }
+  .cat { min-height: 170px; }
+  .promo-art svg { width: 170px; }
+  .ghost { font-size: 3.4rem; }
+  .ghost-blue { left: -4px; font-size: 3.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Візерунки для малюнків (клітинка) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="plaid" width="26" height="26" patternUnits="userSpaceOnUse">
+      <rect width="26" height="26" fill="#d9a23f"/>
+      <rect width="7" height="26" fill="#27375f" opacity=".75"/>
+      <rect width="26" height="7" fill="#27375f" opacity=".75"/>
+      <rect x="15" width="3" height="26" fill="#b5402e" opacity=".7"/>
+      <rect y="15" width="26" height="3" fill="#b5402e" opacity=".7"/>
+    </pattern>
+    <pattern id="plaid2" width="22" height="22" patternUnits="userSpaceOnUse">
+      <rect width="22" height="22" fill="#c4473b"/>
+      <rect width="6" height="22" fill="#1d1d22" opacity=".7"/>
+      <rect width="22" height="6" fill="#1d1d22" opacity=".7"/>
+      <rect x="13" width="2" height="22" fill="#f1e6d6" opacity=".6"/>
+      <rect y="13" width="22" height="2" fill="#f1e6d6" opacity=".6"/>
+    </pattern>
+    <symbol id="jeans-stack" viewBox="0 0 240 120">
+      <rect x="8" y="76" width="224" height="38" rx="12" fill="#2d4f80"/>
+      <rect x="2" y="44" width="226" height="40" rx="12" fill="#3f6aa6"/>
+      <rect x="14" y="10" width="214" height="42" rx="12" fill="#5d8bc4"/>
+      <path d="M26 24H216M26 58H216M26 98H216" stroke="#ffd98a" stroke-width="1.6" stroke-dasharray="5 4" opacity=".85" fill="none"/>
+      <circle cx="204" cy="31" r="4" fill="#d9b25a"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ===================== TOP BAR ===================== -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="left">
+      <span class="flag">
+        <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><rect width="18" height="12" fill="#fff"/><path d="M0 0h18v1.7H0zM0 3.4h18v1.7H0zM0 6.9h18v1.7H0zM0 10.3h18V12H0z" fill="#b22234"/><rect width="8" height="6.9" fill="#3c3b6e"/></svg>
+        USA <span class="caret">&#9660;</span>
+      </span>
+      <span class="phone">+177 2345 7686</span>
+    </div>
+    <ul class="right">
+      <li><a href="#">My Account</a></li>
+      <li><a href="#">Wish List</a></li>
+      <li><a href="#">Shopping</a></li>
+      <li><a href="#">Cart</a></li>
+      <li><a href="#">Checkout</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="navbar" id="navbar">
+  <div class="wrap nav">
+    <a href="#" class="logo">Estore.</a>
+
+    <ul class="menu" id="menu">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#latest">Latest<span class="badge-hot">Hot</span></a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Pages</a></li>
+      <li><a href="#">Contact</a></li>
+      <li class="menu-search">
+        <form class="search" role="search" onsubmit="return false">
+          <input type="search" placeholder="Search products" aria-label="Search products">
+          <button type="submit" aria-label="Search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+        </form>
+      </li>
+    </ul>
+
+    <div class="tools">
+      <form class="search" role="search" onsubmit="return false">
+        <input type="search" placeholder="Search products" aria-label="Search products">
+        <button type="submit" aria-label="Search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      </form>
+      <button class="icon-btn" type="button" aria-label="Wish list">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5S3 14.8 3 8.9A4.9 4.9 0 0 1 12 6.4a4.9 4.9 0 0 1 9 2.5c0 5.9-9 11.6-9 11.6z"/></svg>
+        <span class="count">2</span>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a1 1 0 0 0 1 .8h9.2a1 1 0 0 0 1-.8L21 7H6"/></svg>
+        <span class="count">3</span>
+      </button>
+      <a href="#" class="btn btn-sm">Sign In</a>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-art">
+      <svg viewBox="0 0 420 480" role="img" aria-label="Woman in a pink knitted beanie">
+        <!-- hair (back) -->
+        <path d="M128 160C112 72 288 60 276 160C288 240 296 320 282 376C250 400 158 400 128 376C114 320 122 240 128 160Z" fill="#6a3d2a"/>
+        <path d="M142 200C152 262 146 324 152 384M264 200C256 262 260 324 254 384" stroke="#8a5238" stroke-width="3" fill="none" opacity=".55"/>
+        <!-- body: white knit sweater -->
+        <path d="M30 480C36 372 110 316 204 306C298 316 372 372 378 480Z" fill="#ffffff"/>
+        <path d="M30 480C36 372 110 316 204 306L192 480Z" fill="#e6edf6" opacity=".75"/>
+        <!-- left arm (hand at ear) -->
+        <path d="M40 440C36 372 56 306 96 258L134 282C108 326 104 384 112 450Z" fill="#ffffff"/>
+        <path d="M40 440C36 372 56 306 96 258L108 266C84 316 74 380 78 446Z" fill="#e1e9f3"/>
+        <g fill="#f3c9a5" stroke="#e2ab84" stroke-width="1.6">
+          <ellipse cx="101" cy="212" rx="5.5" ry="14" transform="rotate(-12 101 212)"/>
+          <ellipse cx="112" cy="205" rx="5.5" ry="15" transform="rotate(-4 112 205)"/>
+          <ellipse cx="124" cy="204" rx="5.5" ry="15" transform="rotate(4 124 204)"/>
+          <ellipse cx="135" cy="210" rx="5" ry="13" transform="rotate(12 135 210)"/>
+          <ellipse cx="116" cy="240" rx="21" ry="30" transform="rotate(-18 116 240)" stroke="none"/>
+        </g>
+        <!-- right arm (pointing) -->
+        <path d="M300 392C328 352 350 312 358 282L394 298C386 344 372 396 358 450L300 450Z" fill="#ffffff"/>
+        <path d="M300 392C328 352 350 312 358 282L370 288C358 330 338 370 322 450L300 450Z" fill="#e1e9f3"/>
+        <rect x="352" y="244" width="44" height="46" rx="14" fill="#f3c9a5"/>
+        <rect x="376" y="214" width="16" height="42" rx="8" fill="#f3c9a5" transform="rotate(14 384 235)"/>
+        <!-- neck + collar -->
+        <path d="M178 220H228V312C218 326 188 326 178 312Z" fill="#e3ad88"/>
+        <path d="M148 304C160 286 250 286 262 304C250 334 160 334 148 304Z" fill="#f0f3f9"/>
+        <!-- head -->
+        <ellipse cx="204" cy="180" rx="46" ry="55" fill="#f3c9a5"/>
+        <circle cx="178" cy="204" r="9" fill="#f2a79a" opacity=".45"/>
+        <circle cx="230" cy="204" r="9" fill="#f2a79a" opacity=".45"/>
+        <!-- face -->
+        <path d="M168 150Q179 140 190 148M218 148Q229 140 240 150" stroke="#4a2f22" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="180" cy="168" rx="8" ry="9.5" fill="#fff"/>
+        <ellipse cx="228" cy="168" rx="8" ry="9.5" fill="#fff"/>
+        <circle cx="181" cy="170" r="4.6" fill="#3a2a22"/>
+        <circle cx="227" cy="170" r="4.6" fill="#3a2a22"/>
+        <path d="M204 176C202 190 200 196 206 198" stroke="#e2ab84" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="204" cy="220" rx="8" ry="10.5" fill="#b3394f"/>
+        <ellipse cx="204" cy="225" rx="4.6" ry="4" fill="#e86f82"/>
+        <!-- hair (front) -->
+        <path d="M150 156C154 134 176 126 204 128C232 126 254 134 258 156C246 142 226 140 204 146C182 140 162 142 150 156Z" fill="#6a3d2a"/>
+        <path d="M148 156C142 210 134 290 130 352C130 372 156 374 156 354C160 290 160 210 158 166Z" fill="#6a3d2a"/>
+        <path d="M260 156C266 210 274 290 278 352C278 372 252 374 252 354C248 290 248 210 250 166Z" fill="#6a3d2a"/>
+        <!-- beanie -->
+        <clipPath id="beanie-clip"><path d="M146 146C142 72 266 72 262 146Z"/></clipPath>
+        <path d="M146 146C142 72 266 72 262 146Z" fill="#f6b8ca"/>
+        <g clip-path="url(#beanie-clip)">
+          <path d="M168 78C162 100 160 122 160 144M190 70C188 100 188 124 188 144M216 70C218 100 220 124 220 144M238 78C244 100 246 122 246 144" stroke="#eba3b9" stroke-width="2" fill="none" opacity=".8"/>
+        </g>
+        <rect x="140" y="132" width="128" height="28" rx="9" fill="#ee9db5"/>
+        <path d="M152 134V158M164 134V158M176 134V158M188 134V158M200 134V158M212 134V158M224 134V158M236 134V158M248 134V158" stroke="#e48aa6" stroke-width="2.2"/>
+      </svg>
+    </div>
+
+    <div class="hero-copy">
+      <p class="kicker">60% Discount</p>
+      <h1>Winter<br>Collection</h1>
+      <p>Best Cloth Collection By 2026!</p>
+      <a href="#latest" class="btn">Shop Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SHOP BY CATEGORY ===================== -->
+<section class="section" id="categories">
+  <div class="wrap">
+    <h2 class="section-title">Shop by Category</h2>
+
+    <div class="cats">
+      <a href="#latest" class="cat">
+        <div class="cat-art">
+          <svg viewBox="0 0 130 150" role="img" aria-label="Woman in sunglasses and a grey coat">
+            <path d="M30 70C26 34 100 30 96 70C104 100 100 118 92 128L36 128C28 116 24 96 30 70Z" fill="#3a2a25"/>
+            <path d="M6 150C10 116 38 104 64 102C90 104 118 116 124 150Z" fill="#8b8d94"/>
+            <path d="M50 104L64 134L78 104Z" fill="#f4f4f6"/>
+            <rect x="54" y="84" width="20" height="22" fill="#e3ad88"/>
+            <ellipse cx="64" cy="66" rx="22" ry="27" fill="#f3c9a5"/>
+            <rect x="42" y="58" width="19" height="12" rx="5" fill="#16161a"/>
+            <rect x="67" y="58" width="19" height="12" rx="5" fill="#16161a"/>
+            <path d="M61 63H67" stroke="#16161a" stroke-width="2"/>
+            <path d="M57 82Q64 88 71 82Q64 85 57 82Z" fill="#c24a5c"/>
+            <path d="M42 62C44 38 84 36 88 62C78 48 52 48 42 62Z" fill="#3a2a25"/>
+            <path d="M32 114C48 126 80 126 96 114L98 126C82 140 48 140 30 126Z" fill="#c9ccd2"/>
+          </svg>
+        </div>
+        <div class="cat-copy">
+          <h3>Women's</h3>
+          <span class="tag">Best New Deals</span>
+          <span class="script">New Collection</span>
+        </div>
+      </a>
+
+      <a href="#latest" class="cat pink">
+        <div class="cat-art">
+          <svg viewBox="0 0 130 150" role="img" aria-label="Woman in a black top">
+            <path d="M28 0H100V74C100 96 108 112 106 134H92C94 104 92 64 90 40H40C38 64 36 104 38 134H24C22 112 30 96 30 74Z" fill="#5b3a2a"/>
+            <rect x="52" y="0" width="26" height="36" fill="#f1c6a6"/>
+            <path d="M26 58C34 42 52 36 65 36C78 36 96 42 104 58L108 108H22Z" fill="#f1c6a6"/>
+            <path d="M46 58C54 76 76 76 84 58L90 88C80 96 50 96 40 88Z" fill="#17171b"/>
+            <path d="M48 40L46 60M82 40L84 60" stroke="#17171b" stroke-width="3" stroke-linecap="round"/>
+            <path d="M22 106H108L114 150H16Z" fill="#17171b"/>
+          </svg>
+        </div>
+        <div class="cat-copy">
+          <span class="script">Discount!</span>
+          <h3>Winter Cloth</h3>
+          <small>New Collection</small>
+        </div>
+      </a>
+
+      <a href="#latest" class="cat">
+        <div class="cat-art">
+          <svg viewBox="0 0 130 150" role="img" aria-label="Man in a beige jacket">
+            <rect x="54" y="78" width="24" height="24" fill="#dfa986"/>
+            <path d="M4 150C8 112 36 98 66 96C96 98 124 112 128 150Z" fill="#c9a77c"/>
+            <path d="M52 98L66 138L80 98Z" fill="#f4f4f6"/>
+            <path d="M44 98L66 142L52 96ZM88 98L66 142L80 96Z" fill="#b8956b"/>
+            <ellipse cx="66" cy="54" rx="21" ry="26" fill="#e8b793"/>
+            <path d="M46 60C48 84 84 84 86 60C84 72 48 72 46 60Z" fill="#6a4a3b" opacity=".65"/>
+            <path d="M44 46C42 16 92 14 90 46C86 32 50 32 44 46Z" fill="#2a211e"/>
+            <circle cx="58" cy="54" r="2.2" fill="#2a211e"/>
+            <circle cx="74" cy="54" r="2.2" fill="#2a211e"/>
+            <path d="M60 70Q66 73 72 70" stroke="#a5614e" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cat-copy">
+          <h3>Men's Cloth</h3>
+          <span class="tag">Best New Deals</span>
+          <span class="script">New Collection</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LATEST PRODUCTS ===================== -->
+<section class="section" id="latest">
+  <div class="wrap wrap-narrow">
+    <div class="latest-head">
+      <h2>Latest Products</h2>
+      <div class="filters" role="group" aria-label="Filter products">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="new" aria-pressed="false">New</button>
+        <button type="button" data-filter="favoured" aria-pressed="false">Favoured</button>
+        <button type="button" data-filter="offer" aria-pressed="false">Offer</button>
+      </div>
+    </div>
+
+    <div class="products">
+
+      <article class="product" data-tags="new offer">
+        <div class="product-img">
+          <span class="new">New</span>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Plaid shorts">
+            <path d="M54 40H146L164 156H106L100 100L94 156H36Z" fill="url(#plaid)"/>
+            <path d="M54 40H146L148 56H52Z" fill="#27375f"/>
+            <path d="M94 58V76M106 58V76" stroke="#f3f3f3" stroke-width="2" stroke-linecap="round"/>
+            <path d="M100 100L94 156M100 100L106 156" stroke="#000" stroke-opacity=".18" stroke-width="2"/>
+            <path d="M36 156H94L93 148H38ZM106 156H164L162 148H107Z" fill="#000" opacity=".14"/>
+          </svg>
+        </div>
+        <div class="stars" aria-label="3 out of 5">★★★<span class="off">★★</span></div>
+        <h3>Plaid Summer Shorts</h3>
+        <div class="price">$40.00 <del>$50.00</del></div>
+      </article>
+
+      <article class="product" data-tags="favoured offer">
+        <div class="product-img">
+          <svg viewBox="0 0 200 200" role="img" aria-label="Green sweatshirt">
+            <path d="M56 46C76 56 124 56 144 46L174 62L190 150L164 156L152 102V168H48V102L36 156L10 150L26 62Z" fill="#2f7d4f"/>
+            <path d="M76 46C86 64 114 64 124 46C112 40 88 40 76 46Z" fill="#245f3c"/>
+            <rect x="48" y="158" width="104" height="12" fill="#245f3c"/>
+            <path d="M10 150L36 156L38 144L12 138ZM190 150L164 156L162 144L188 138Z" fill="#245f3c"/>
+            <text x="100" y="104" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="17" fill="#fff" letter-spacing="1">TOO COOL</text>
+            <text x="100" y="119" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="6" fill="#cfe9d8" letter-spacing="1.4">TO BE LOVED</text>
+          </svg>
+        </div>
+        <div class="stars" aria-label="3 out of 5">★★★<span class="off">★★</span></div>
+        <h3>Too Cool Sweatshirt</h3>
+        <div class="price">$40.00 <del>$50.00</del></div>
+      </article>
+
+      <article class="product" data-tags="new favoured">
+        <div class="product-img">
+          <span class="new">New</span>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Yellow knitted sweater">
+            <path d="M62 50C80 60 120 60 138 50L152 58C190 62 198 122 176 156L150 148L146 104L148 170H52L54 104L50 148L24 156C2 122 10 62 48 58Z" fill="#e9b949"/>
+            <path d="M78 50C88 68 112 68 122 50C110 44 90 44 78 50Z" fill="#cf9d33"/>
+            <rect x="52" y="158" width="96" height="12" fill="#cf9d33"/>
+            <path d="M24 156L50 148L54 160L28 168ZM176 156L150 148L146 160L172 168Z" fill="#cf9d33"/>
+            <path d="M64 70C52 100 50 126 54 146M136 70C148 100 150 126 146 146" stroke="#fff" stroke-opacity=".18" stroke-width="3" fill="none"/>
+            <circle cx="122" cy="92" r="5" fill="#2a2a30"/>
+          </svg>
+        </div>
+        <div class="stars" aria-label="3 out of 5">★★★<span class="off">★★</span></div>
+        <h3>Yellow Knit Sweater</h3>
+        <div class="price">$40.00 <del>$50.00</del></div>
+      </article>
+
+      <article class="product" data-tags="offer">
+        <div class="product-img">
+          <svg viewBox="0 0 200 200" role="img" aria-label="Grey pullover">
+            <path d="M56 46C76 56 124 56 144 46L172 62L188 154L162 160L152 106V168H48V106L38 160L12 154L28 62Z" fill="#7f8d89"/>
+            <path d="M76 46C86 64 114 64 124 46C112 40 88 40 76 46Z" fill="#6a7874"/>
+            <rect x="48" y="158" width="104" height="12" fill="#6a7874"/>
+            <path d="M12 154L38 160L40 148L14 142ZM188 154L162 160L160 148L186 142Z" fill="#6a7874"/>
+            <path d="M70 70V150M86 74V152M102 76V154M118 74V152M134 70V150" stroke="#fff" stroke-opacity=".1" stroke-width="3"/>
+            <rect x="94" y="62" width="12" height="7" rx="1.5" fill="#d8dcda"/>
+          </svg>
+        </div>
+        <div class="stars" aria-label="3 out of 5">★★★<span class="off">★★</span></div>
+        <h3>Grey Wool Pullover</h3>
+        <div class="price">$40.00 <del>$50.00</del></div>
+      </article>
+
+      <article class="product" data-tags="favoured">
+        <div class="product-img">
+          <svg viewBox="0 0 200 200" role="img" aria-label="Black trousers">
+            <path d="M60 26H140L152 176H108L100 84L92 176H48Z" fill="#1c1c21"/>
+            <rect x="60" y="26" width="80" height="15" rx="2" fill="#101014"/>
+            <path d="M92 41V64M108 41V64" stroke="#e8e8ec" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M60 42L58 96M140 42L142 96" stroke="#2c2c33" stroke-width="2"/>
+            <path d="M74 46L66 172" stroke="#34343c" stroke-width="3"/>
+            <path d="M48 176H92L92 168H49ZM108 176H152L151 168H108Z" fill="#000" opacity=".35"/>
+          </svg>
+        </div>
+        <div class="stars" aria-label="3 out of 5">★★★<span class="off">★★</span></div>
+        <h3>Black Cargo Pants</h3>
+        <div class="price">$40.00 <del>$50.00</del></div>
+      </article>
+
+      <article class="product" data-tags="new offer">
+        <div class="product-img">
+          <span class="new">New</span>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Light blue blazer">
+            <path d="M70 38L100 28L130 38L168 58L182 156L156 162L148 112L150 180H50L52 112L44 162L18 156L32 58Z" fill="#a9c6e2"/>
+            <path d="M100 30L84 82L100 120L116 82Z" fill="#f2f6fb"/>
+            <path d="M70 38L100 124L82 82L94 58ZM130 38L100 124L118 82L106 58Z" fill="#8fb0d4"/>
+            <circle cx="100" cy="136" r="3.2" fill="#6c8db3"/>
+            <circle cx="100" cy="154" r="3.2" fill="#6c8db3"/>
+            <rect x="62" y="136" width="26" height="4" rx="1" fill="#8fb0d4"/>
+            <rect x="112" y="136" width="26" height="4" rx="1" fill="#8fb0d4"/>
+            <path d="M44 162L52 112M156 162L148 112" stroke="#8fb0d4" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stars" aria-label="3 out of 5">★★★<span class="off">★★</span></div>
+        <h3>Denim Blazer</h3>
+        <div class="price">$40.00 <del>$50.00</del></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROMO BANNER ===================== -->
+<section class="promo">
+  <div class="wrap">
+    <div class="promo-box">
+      <span class="ghost" aria-hidden="true">MANZ</span>
+
+      <div class="promo-art">
+        <svg viewBox="0 0 200 440" role="img" aria-label="Man in a plaid shirt carrying a bag">
+          <!-- legs -->
+          <path d="M48 214H148L142 410H104L98 272L92 410H54Z" fill="#cdb48f"/>
+          <path d="M98 272V232" stroke="#b49a74" stroke-width="2"/>
+          <path d="M50 410H96L98 432H44Z M104 410H148L154 432H102Z" fill="#7a5a3e"/>
+          <!-- left arm -->
+          <path d="M52 100L34 192L58 198L70 132Z" fill="url(#plaid2)"/>
+          <path d="M34 192L28 254L50 256L58 198Z" fill="#e8b793"/>
+          <!-- torso -->
+          <path d="M52 98C68 88 130 88 146 98L158 222L42 222Z" fill="url(#plaid2)"/>
+          <path d="M86 90L98 124L110 90Z" fill="#f3f3f3"/>
+          <!-- right arm + bag -->
+          <path d="M146 100L166 192L142 200L132 132Z" fill="url(#plaid2)"/>
+          <path d="M166 192L174 240L152 246L142 200Z" fill="#e8b793"/>
+          <path d="M148 244C146 220 186 220 184 246" stroke="#26262b" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="126" y="244" width="68" height="62" rx="12" fill="#1f1f24"/>
+          <path d="M126 262H194" stroke="#3a3a42" stroke-width="2"/>
+          <rect x="150" y="270" width="20" height="8" rx="3" fill="#3a3a42"/>
+          <!-- head -->
+          <rect x="88" y="76" width="20" height="18" fill="#e8b793"/>
+          <ellipse cx="98" cy="52" rx="22" ry="27" fill="#efc09b"/>
+          <path d="M72 46C68 14 128 12 126 46C118 34 80 34 72 46Z" fill="#2b221f"/>
+          <rect x="76" y="46" width="18" height="11" rx="4" fill="#16161a"/>
+          <rect x="102" y="46" width="18" height="11" rx="4" fill="#16161a"/>
+          <path d="M94 50H102" stroke="#16161a" stroke-width="2"/>
+          <path d="M92 70Q98 73 104 70" stroke="#a5614e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="promo-copy">
+        <h2>Find The Best Product<br>from Our Shop</h2>
+        <p>Designers who are interested in creating the state of the art.</p>
+        <a href="#latest" class="btn btn-dark">Shop Now</a>
+      </div>
+
+      <svg class="promo-jeans" viewBox="0 0 240 120" role="img" aria-label="Folded jeans"><use href="#jeans-stack"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BEST COLLECTION ===================== -->
+<section class="best">
+  <div class="wrap">
+    <div class="best-grid">
+
+      <div class="best-copy">
+        <h2>Best Collection of This Month</h2>
+        <p>Designers who are interested in creating new things.</p>
+        <a href="#latest" class="btn btn-glow">Shop Now</a>
+        <svg class="best-jeans" viewBox="0 0 240 120" role="img" aria-label="Folded jeans"><use href="#jeans-stack"/></svg>
+      </div>
+
+      <div class="best-art">
+        <span class="ghost-blue" aria-hidden="true">DENIM</span>
+        <svg viewBox="0 0 240 470" role="img" aria-label="Man in a denim jacket and jeans">
+          <!-- jeans -->
+          <path d="M60 256H174L178 440H128L118 322L108 440H58Z" fill="#7aa0d1"/>
+          <path d="M118 322L108 440H58L60 256H96Z" fill="#6a90c4" opacity=".55"/>
+          <path d="M80 360L96 354M82 368L98 362" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+          <path d="M54 440H110L114 464H46ZM126 440H182L192 464H122Z" fill="#fafafa" stroke="#dadde2"/>
+          <!-- tee -->
+          <path d="M70 118H162L170 258H62Z" fill="#f6f6f6"/>
+          <!-- jacket sleeves -->
+          <path d="M64 112L36 130L22 252L52 258L68 172Z" fill="#24364f"/>
+          <path d="M168 112L196 130L210 252L180 258L164 172Z" fill="#24364f"/>
+          <ellipse cx="37" cy="266" rx="11" ry="12" fill="#efc19b"/>
+          <ellipse cx="195" cy="266" rx="11" ry="12" fill="#efc19b"/>
+          <!-- jacket panels -->
+          <path d="M64 112L100 104L108 262L58 266Z" fill="#2b4262"/>
+          <path d="M168 112L132 104L124 262L174 266Z" fill="#2b4262"/>
+          <path d="M72 150H100M72 190H102M164 150H136M164 190H134" stroke="#3a5478" stroke-width="2"/>
+          <path d="M96 100L118 128L102 130L84 108ZM136 100L114 128L130 130L148 108Z" fill="#1d2d44"/>
+          <!-- bag -->
+          <rect x="150" y="262" width="52" height="64" rx="10" fill="#f4f4f6" stroke="#d8dbe0"/>
+          <path d="M160 262C160 244 192 244 192 262" stroke="#d8dbe0" stroke-width="4" fill="none"/>
+          <text x="176" y="302" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="20" fill="#d33a4c">T</text>
+          <!-- head -->
+          <rect x="104" y="92" width="24" height="22" fill="#dfa986"/>
+          <ellipse cx="90" cy="68" rx="4.5" ry="8" fill="#e3ad88"/>
+          <ellipse cx="142" cy="68" rx="4.5" ry="8" fill="#e3ad88"/>
+          <ellipse cx="116" cy="64" rx="26" ry="32" fill="#efc19b"/>
+          <path d="M84 56C76 14 152 8 150 54C142 36 102 32 84 56Z" fill="#2a1f1a"/>
+          <circle cx="105" cy="68" r="2.4" fill="#2a1f1a"/>
+          <circle cx="127" cy="68" r="2.4" fill="#2a1f1a"/>
+          <path d="M107 84Q116 90 125 84" stroke="#a5614e" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="best-list">
+        <button type="button" class="best-item" aria-pressed="false">
+          <span class="label">Menz Winter Jacket</span>
+          <span class="thumb">
+            <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M20 10L30 14L40 10L54 18L50 30L42 27V52H18V27L10 30L6 18Z" fill="#f2d575"/><path d="M24 10C28 18 32 18 36 10" fill="none" stroke="#d9b94c" stroke-width="2"/></svg>
+          </span>
+        </button>
+        <button type="button" class="best-item" aria-pressed="true">
+          <span class="label">Menz Winter Jacket</span>
+          <span class="thumb">
+            <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M16 8H44L46 54H34L30 24L26 54H14Z" fill="#6f95c7"/><rect x="16" y="8" width="28" height="5" fill="#5379ad"/></svg>
+          </span>
+        </button>
+        <button type="button" class="best-item" aria-pressed="false">
+          <span class="label">Menz Winter Jacket</span>
+          <span class="thumb">
+            <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M20 9L30 13L40 9L55 17L51 33L43 30V52H17V30L9 33L5 17Z" fill="#3f4a2f"/><path d="M30 13V52" stroke="#2a3220" stroke-width="2"/><path d="M22 9C24 16 36 16 38 9" fill="#2f3824"/></svg>
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  // Бургер-меню
+  var navbar = document.getElementById('navbar');
+  var toggle = document.getElementById('navToggle');
+  function setMenu(open) {
+    navbar.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function () { setMenu(!navbar.classList.contains('open')); });
+  document.querySelectorAll('#menu a').forEach(function (a) {
+    a.addEventListener('click', function () { setMenu(false); });
+  });
+  window.addEventListener('resize', function () { if (window.innerWidth > 900) setMenu(false); });
+
+  // Фільтр товарів: All / New / Favoured / Offer
+  var buttons = document.querySelectorAll('.filters button');
+  var products = document.querySelectorAll('.product');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var filter = btn.getAttribute('data-filter');
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      products.forEach(function (p) {
+        var tags = p.getAttribute('data-tags').split(' ');
+        p.hidden = !(filter === 'all' || tags.indexOf(filter) !== -1);
+      });
+    });
+  });
+
+  // Список "Best Collection": активним може бути один пункт
+  var items = document.querySelectorAll('.best-item');
+  items.forEach(function (item) {
+    item.addEventListener('click', function () {
+      items.forEach(function (i) { i.setAttribute('aria-pressed', i === item ? 'true' : 'false'); });
+    });
+  });
+})();
+</script>
+</body>
+</html>
