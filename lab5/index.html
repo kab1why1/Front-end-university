@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кияниця Іван Сергійович. ІС-43 - Лабораторна №5</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main>
+  <section id="task1">
+    <form id="regForm" novalidate>
+      <table class="form-table"><tbody id="formBody"></tbody></table>
+      <div class="actions">
+        <button type="submit">Перевірити</button>
+        <button type="reset" class="secondary">Очистити</button>
+      </div>
+      <p id="formStatus" role="status"></p>
+    </form>
+  </section>
+
+  <section id="task2">
+    <div class="toolbar">
+      <div class="palette">
+        <label for="colorPicker">Палітра:</label>
+        <input type="color" id="colorPicker" value="#3b6cf6">
+        <div class="swatches" id="swatches"></div>
+      </div>
+      <button type="button" class="secondary" id="resetGrid">Скинути кольори</button>
+    </div>
+
+    <div class="grid-wrap"><table id="grid"></table></div>
+    <p id="gridInfo"></p>
+  </section>
+
+</main>
+
+<dialog id="resultDialog">
+  <h3 style="margin-top:0">Введена інформація</h3>
+  <div id="dialogContent"></div>
+  <button type="button" id="closeDialog">Закрити</button>
+</dialog>
+
+<script src="./script.js"></script>
+</body>
+</html>
