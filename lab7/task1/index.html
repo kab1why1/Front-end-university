@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="React, лабораторна робота, КПІ">
 <meta name="description" content="Лабораторна робота: React-компоненти Header, Content, Image">
-<title>Кияниця Іван Сергійович, ІС-43, React</title>
+<title>Кияниця Іван Сергійович, ІС-43, Лабораторна робота №7, Варіант 139</title>
 <style>
 #city-description,
 .city-link {
@@ -72,26 +72,23 @@ function schemeStyle(step) {
   return { backgroundColor: scheme.bg, color: scheme.color };
 }
 
-// ---------- Header: функціональний компонент ----------
 function Header(props) {
   return <h2>{props.name}</h2>;
 }
 
-// ---------- Image: функціональний компонент ----------
 function Image(props) {
   return <img src={props.src} alt={props.alt} width={props.width} />;
 }
 
-// ---------- Content: класовий компонент ----------
 class Content extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textStep: 0,          // кліки по тексту про місто
-      linkStep: 0,          // кліки по посиланню
-      mainWidth: START_WIDTH, // ширина панорами всередині посилання
+      textStep: 0,          
+      linkStep: 0,          
+      mainWidth: START_WIDTH, 
       mainVisible: true,
-      gallery: [],          // додані кнопкою "Додати" зображення: { id, width }
+      gallery: [],          
       nextId: 1
     };
 
